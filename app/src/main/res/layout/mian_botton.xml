@@ -3,6 +3,7 @@
               android:id="@+id/main_bottom_bar"
               android:layout_width="match_parent"
               android:layout_height="60dp"
+        android:background="@android:color/white"
               android:layout_alignParentBottom="true"
               android:orientation="horizontal">
     
@@ -102,7 +103,8 @@
         android:id="@+id/bottom_bar_me_btn"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
         
         <TextView
             android:id="@+id/bottom_bar_text_me"

@@ -1,66 +1,77 @@
-package com.hhn.asus.express;
+package com.hhn.asus.express.Activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
-    private TextView tv_task,tv_community,tv_message,tv_me,tv_main_title;
-    private ImageView iv_task,iv_community,iv_message,iv_me;
+import com.hhn.asus.express.R;
+import com.hhn.asus.express.view.TaskLobbyView;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private TextView tv_task, tv_community, tv_message, tv_me, tv_main_title;
+    private ImageView iv_task, iv_community, iv_message, iv_me;
 
     private View mTackBtn;   //底部的每个图标和文字的组合
     private View mCommunityBtn;
     private View mMessageBtn;
     private View mMeBtn;
-    public LinearLayout mBottomLayout;
+    public  LinearLayout mBottomLayout;
     private LinearLayout ll__title_bar;
     private FrameLayout mBodyLayout;
-
-
-
-
+    private TaskLobbyView taskLobbyView;
+    private Button button2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Init();
         setListener();
         setInitStatus();
+        /*Intent intent = new Intent(MainActivity.this,TaskLobby.class);
+        startActivity(intent);*/
     }
-//数据初始化
+    //获取界面上的UI控件
+
     private void Init() {
-        tv_task=(TextView)findViewById(R.id.bottom_bar_text_task);
-        tv_community=(TextView)findViewById(R.id.bottom_bar_text_community);
-        tv_message=(TextView)findViewById(R.id.bottom_bar_text_message);
-        tv_me=(TextView)findViewById(R.id.bottom_bar_text_me);
-        iv_task=(ImageView)findViewById(R.id.bottom_bar_image_task);
-        iv_community=(ImageView)findViewById(R.id.bottom_bar_image_community);
-        iv_message=(ImageView)findViewById(R.id.bottom_bar_image_message);
-        iv_me=(ImageView)findViewById(R.id.bottom_bar_image_me);
-        mTackBtn=findViewById(R.id.bottom_bar_task__btn);
-        mCommunityBtn=findViewById(R.id.bottom_bar_community_btn);
-        mMessageBtn=findViewById(R.id.bottom_bar_message_btn);
-        mMeBtn=findViewById(R.id.bottom_bar_me_btn);
-        mBottomLayout=(LinearLayout)findViewById(R.id.main_bottom_bar);  //中间内容
-        mBodyLayout=(FrameLayout)findViewById(R.id.main_body);
-        ll__title_bar=(LinearLayout)findViewById(R.id.title_bar);         //顶部的框
-        tv_main_title=(TextView)findViewById(R.id.tv_main_content);      //顶部文字
+        tv_task = (TextView) findViewById(R.id.bottom_bar_text_task);
+        tv_community = (TextView) findViewById(R.id.bottom_bar_text_community);
+        tv_message = (TextView) findViewById(R.id.bottom_bar_text_message);
+        tv_me = (TextView) findViewById(R.id.bottom_bar_text_me);
+        iv_task = (ImageView) findViewById(R.id.bottom_bar_image_task);
+        iv_community = (ImageView) findViewById(R.id.bottom_bar_image_community);
+        iv_message = (ImageView) findViewById(R.id.bottom_bar_image_message);
+        iv_me = (ImageView) findViewById(R.id.bottom_bar_image_me);
+        mTackBtn = findViewById(R.id.bottom_bar_task__btn);
+        mCommunityBtn = findViewById(R.id.bottom_bar_community_btn);
+        mMessageBtn = findViewById(R.id.bottom_bar_message_btn);
+        mMeBtn = findViewById(R.id.bottom_bar_me_btn);
+        mBottomLayout = (LinearLayout) findViewById(R.id.main_bottom_bar);  //中间内容
+        mBodyLayout = (FrameLayout) findViewById(R.id.main_body);
+        ll__title_bar = (LinearLayout) findViewById(R.id.title_bar);         //顶部的框
+        tv_main_title = (TextView) findViewById(R.id.tv_main_content);      //顶部文字
 
 
+    }
+
+    private void initBodyLayout() {
+        mBodyLayout = (FrameLayout) findViewById(R.id.main_body);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.bottom_bar_task__btn:
                 clearBottomImageState();
                 selectDisplayView(0);
@@ -77,10 +88,17 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 clearBottomImageState();
                 selectDisplayView(3);
                 break;
-            default: break;
+            default:
+                break;
+            case R.id.button2:
+                Intent intent =new Intent();
+                intent.setClass(MainActivity.this, TaskhallPublishAcitivity.class);
+                startActivity(intent);
+                break;
         }
     }
-//清除底部按钮的选中状态
+
+    //清除底部按钮的选中状态
     private void clearBottomImageState() {
         tv_task.setTextColor(Color.parseColor("#666666"));
         tv_community.setTextColor(Color.parseColor("#666666"));
@@ -90,32 +108,35 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         iv_community.setImageResource(R.drawable.home);
         iv_message.setImageResource(R.drawable.home);
         iv_me.setImageResource(R.drawable.home);
-        for (int i=0;i<mBottomLayout.getChildCount();i++){
+        for (int i = 0; i < mBottomLayout.getChildCount(); i++) {
             mBottomLayout.getChildAt(i).setSelected(false);
         }
 
 
     }
-    private  void  setListener(){
-        for (int i=0;i<mBottomLayout.getChildCount();i++){
+
+    private void setListener() {
+        for (int i = 0; i < mBottomLayout.getChildCount(); i++) {
             mBottomLayout.getChildAt(i).setOnClickListener(this);
         }
     }
+
     //移除不需要的视图
-    private  void  removeAllView(){
-        for (int i=0;i<mBodyLayout.getChildCount();i++){
+    private void removeAllView() {
+        for (int i = 0; i < mBodyLayout.getChildCount(); i++) {
             mBodyLayout.getChildAt(i).setVisibility(View.GONE);
         }
     }
+
     //设置界面的初始状态
-    private void  setInitStatus(){
+    private void setInitStatus() {
         clearBottomImageState();
         setSelectedStatus(0);
         creatView(0);
     }
 
     private void setSelectedStatus(int i) {
-        switch (i){
+        switch (i) {
             case 0:
                 mTackBtn.setSelected(true);
                 iv_task.setImageResource(R.drawable.home);
@@ -131,7 +152,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 tv_main_title.setText("社区");
                 break;
             case 2:
-              mMessageBtn.setSelected(true);
+                mMessageBtn.setSelected(true);
                 iv_message.setImageResource(R.drawable.community);
                 tv_message.setTextColor(Color.parseColor("#0097F7"));
                 ll__title_bar.setVisibility(View.VISIBLE);
@@ -154,11 +175,21 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         creatView(i);
         setSelectedStatus(i);
     }
+
     private void creatView(int i) {
-        switch (i){
+        switch (i) {
             case 0://大厅界面；
+                if (taskLobbyView == null) {
+                    taskLobbyView = new TaskLobbyView(this);
+                    mBodyLayout.addView(taskLobbyView.getView());
+
+                } else {
+                    taskLobbyView.getView();
+                }
+                taskLobbyView.showView();
                 break;
             case 1://社区界面
+//                mBodyLayout.findViewById(R.id.button2).setVisibility(View.GONE);
                 break;
             case 2://消息界面
                 break;
@@ -166,4 +197,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 break;
 
         }
-}}
+    }
+
+    private void initView() {
+        button2 = (Button) findViewById(R.id.button2);
+
+        button2.setOnClickListener(this);
+    }
+}

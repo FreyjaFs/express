@@ -5,18 +5,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hhn.asus.express.MainActivity">
+    android:background="@android:color/white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-   <include layout="@layout/main_title_bar"></include>
+        android:orientation="vertical"
+        android:weightSum="1">
+        <include layout="@layout/main_title_bar"></include>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:textColor="@color/lightPink"
+            android:background="@drawable/border_line_lightgreen"
+            android:text="发布" />
+
         <FrameLayout
             android:id="@+id/main_body"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white">
-        </FrameLayout>
+            android:layout_height="68dp"
+            android:layout_weight="0.92"
+            android:background="@android:color/white"></FrameLayout>
     </LinearLayout>
     <include  layout="@layout/mian_botton"></include>
 
